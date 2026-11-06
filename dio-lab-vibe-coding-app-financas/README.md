@@ -55,7 +55,7 @@ Interações com Lovable:
 
 Resultado final no Lovable: https://appfinancaspessoal.lovable.app
 
-<img width="1431" height="885" alt="image" src="[[https://github.com/user-attachments/assets/a3c8b277-a6d9-4f60-a94c-08445eeaee98](https://private-user-images.githubusercontent.com/37148616/517037990-a3c8b277-a6d9-4f60-a94c-08445eeaee98.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3OTM5ODkzMDMsIm5iZiI6MTc5Mzk4OTAwMywicGF0aCI6Ii8zNzE0ODYxNi81MTcwMzc5OTAtYTNjOGIyNzctYTZkOS00ZjYwLWE5NGMtMDg0NDVlZWFlZTk4LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjExMDYlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYxMTA2VDE4MTY0M1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTUwZmQyNjNkN2QxNzIyYzBhN2MyMzZkNDk1YTFjYmY5YWE5MzlkN2Q5OGM1OGEyNGE4OGY1YTFjNGVmM2QxZmUmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JnJlc3BvbnNlLWNvbnRlbnQtdHlwZT1pbWFnZSUyRnBuZyJ9.zj-b7dIYvWff2zFFQmfqHItBrVruBFjMU0aZlhScER8](https://raw.githubusercontent.com/herbetdesign/AI-Engineering-Generative-AI/refs/heads/main/dio-lab-vibe-coding-app-financas/lovable.png)" />
+<img width="1431" height="885" alt="image" src="https://raw.githubusercontent.com/herbetdesign/AI-Engineering-Generative-AI/refs/heads/main/dio-lab-vibe-coding-app-financas/lovable.png" />
 
 # FinanceAI – Controle financeiro que conversa com você
 
