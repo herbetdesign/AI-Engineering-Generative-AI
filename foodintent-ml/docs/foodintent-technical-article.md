@@ -22,15 +22,17 @@ Comparamos TF-IDF de palavras com Logistic Regression e Multinomial Naive Bayes.
 
 ## Resultados
 
-Execute novamente `python -m foodintent_ml.train` após atualizar o código. Preencha com os resultados reais gerados em `reports/metrics.json`:
+Execução local em Python 3.11, com os splits atuais:
 
-- Modelo selecionado: **[resultado]**
-- SID test: accuracy **[resultado]**, macro F1 **[resultado]**
-- Teste curado: accuracy **[resultado]**, macro F1 **[resultado]**
-- “Meu pedido está atrasado”: **[intenção prevista e confiança]**
-- Erros por classe e matriz de confusão: **[análise dos arquivos gerados]**
+- Modelo selecionado pela validação curada: **Multinomial Naive Bayes**, macro F1 **0,9596**.
+- SID test: **93 mensagens**, accuracy **0,9677** e macro F1 **0,9580**.
+- Teste curado de delivery: **30 mensagens**, accuracy **1,0000** e macro F1 **1,0000**.
+- Caso de regressão “Meu pedido está atrasado”: classificado como `order_status` no teste curado.
+- Os cinco rótulos tiveram seis exemplos cada no teste curado.
 
-A métrica anterior de 0,9811 de accuracy e 0,9722 de macro F1 veio do teste SID antes da inclusão do suplemento; ela não mede a falha observada em linguagem natural de delivery e não deve ser divulgada como resultado final do projeto.
+O resultado perfeito no teste curado não demonstra generalização: são apenas 30 frases sintéticas escritas para o projeto, e não uma amostra independente de clientes. O SID também é sintético. A confiança do caso de regressão está registrada em `reports/curated_test_predictions.json`, gerado localmente.
+
+Os resultados anteriores do primeiro modelo (0,9811 de accuracy no SID) foram substituídos porque aquele modelo falhou na frase de atraso observada pela API.
 
 ## API e segurança operacional
 
