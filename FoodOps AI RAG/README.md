@@ -144,16 +144,3 @@ Crie .env a partir de .env.example e configure OPENAI_API_KEY. Depois rode:
     docker compose up --build
 
 A API ficará em http://127.0.0.1:8000/docs. O Compose mantém documentos, índice vetorial e histórico no diretório data/.
-
-## Preparar para publicar no GitHub
-
-Antes de publicar, confirme que .env não aparece em git status e que nenhum documento operacional privado está no repositório. O .gitignore exclui chaves, uploads, índice Chroma e histórico SQLite.
-
-Se ainda não houver um repositório Git local:
-
-    git init
-    git add .
-    git status --short
-    git commit -m "Build FoodOps AI RAG"
-
-Depois, crie um repositório vazio no GitHub e siga os comandos que o próprio GitHub mostrar para conectar origin e enviar o código. A API não possui autenticação de usuários; use-a apenas localmente ou acrescente autenticação antes de expô-la publicamente.
