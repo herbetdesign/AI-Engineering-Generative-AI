@@ -1,59 +1,58 @@
 # FoodIntent ML
 
-Classificador experimental de intenções em mensagens de atendimento de delivery, em português brasileiro. O projeto compara TF-IDF com Logistic Regression e Multinomial Naive Bayes, fornece uma API FastAPI e inclui um notebook para Kaggle.
+Classificador experimental de intenções em mensagens de atendimento de delivery, em português brasileiro. O projeto compara TF-IDF com Logistic Regression e Multinomial Naive Bayes, oferece API FastAPI e notebook Kaggle.
 
-## Limitação dos dados
+## Dados e limitações
 
-O projeto usa o [SID — Synthetic Intent Dataset](https://huggingface.co/datasets/luigicfilho/sid), licença MIT. Ele contém exemplos sintéticos multilíngues, não mensagens reais de clientes de delivery. Os resultados são uma avaliação exploratória do benchmark e não representam desempenho em produção.
+O SID (licença MIT) é sintético e multilíngue. Filtramos português e usamos somente intenções de status, cancelamento, pagamento e reembolso. A intenção ampla de reclamação de entrega foi removida do treino por ser ambígua. Para representar pedidos incorretos/faltantes, incluímos um suplemento sintético escrito para este projeto em `data/curated/`.
 
-O pipeline filtra português e agrupa intenções da fonte em cinco classes amplas: status do pedido, cancelamento, problema de pagamento, reembolso e problema na entrega. O mapeamento e suas ambiguidades estão documentados no notebook e no artigo.
+Todos os dados são sintéticos; não são mensagens de clientes. A primeira chamada manual à API errou “Meu pedido está atrasado”, prevendo cancelamento com confiança alta. Por isso o projeto agora reporta um teste curado separado e mantém revisão humana obrigatória na API. Métricas não estimam desempenho em produção.
 
-## Instalação (Windows PowerShell)
+## Instalação (PowerShell)
 
-Use Python 3.11:
+Requer Python 3.11 (>=3.11,<3.12):
 
 ```powershell
 py -3.11 -m venv .venv
 .\.venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-python -m pip install -e ".[dev]"
+python -m pip install -e ".[dev,publish]"
 ```
 
-## Treino e avaliação
+## Treinar e avaliar
 
 ```powershell
 python -m foodintent_ml.train
 ```
 
-O modelo é selecionado pela macro F1 no conjunto de validação. As métricas finais são calculadas no teste e salvas em `reports/metrics.json`; o pipeline fica em `models/foodintent_pipeline.joblib`. Os resultados só são conhecidos depois que o treinamento é executado.
+A seleção de modelo usa macro F1 no conjunto curado de validação. O script reporta separadamente o teste do SID e o teste curado de delivery. O caso “Meu pedido está atrasado” está no teste curado, fora do treino. Os resultados são gravados em `reports/metrics.json` e `reports/curated_test_predictions.json`; o modelo vai para `models/foodintent_pipeline.joblib`.
 
 ## API
 
-Depois do treino:
+Depois do treinamento:
 
 ```powershell
 uvicorn foodintent_ml.api:app --reload
 ```
 
 - `GET /health`
-- `POST /classify` com `{"message": "Meu pedido está atrasado"}`
+- `POST /classify`: `{"message": "Meu pedido está atrasado"}`
 
-A confiança reportada não é calibrada. O endpoint sinaliza revisão humana abaixo de um limiar exploratório; não automatize decisões com impacto ao cliente.
+A API marca todas as previsões para revisão humana até que haja avaliação representativa e calibração. A confiança não é garantia de acerto.
 
-## Notebook Kaggle
+## Kaggle
 
-Importe `notebooks/foodintent_nlp_classification.ipynb`, habilite Internet e execute todas as células. Ele inclui distribuição de classes, comparação de modelos, métricas, matriz de confusão e inspeção de erros.
+Importe `notebooks/foodintent_nlp_classification.ipynb`, habilite Internet e execute todas as células. O notebook mostra os dois testes separados, matriz de confusão e erros. Use apenas métricas geradas pela execução.
 
-## Hugging Face
+## Publicar no Hugging Face
 
-Após treinar, autentique-se localmente com `hf auth login` e publique usando:
+Após treinar, entre na sua conta com `hf auth login` e publique o modelo com:
 
 ```powershell
 python -m foodintent_ml.publish seu-usuario/foodintent-ml
 ```
 
-O script usa a sessão já autenticada; não armazene tokens no projeto. A publicação depende da conta Hugging Face do autor.
+Não coloque tokens no repositório nem no chat. A publicação inclui métricas reais e limitações.
 
-## Fonte e licença
+## Fonte
 
-SID — Synthetic Intent Dataset: https://huggingface.co/datasets/luigicfilho/sid (MIT). O projeto baixa os CSVs da fonte, sem redistribuí-los.
+SID — https://huggingface.co/datasets/luigicfilho/sid (MIT). Os CSVs do dataset são baixados da fonte; o suplemento curado do projeto está incluído e identificado como sintético.

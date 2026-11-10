@@ -1,4 +1,4 @@
-"""FastAPI endpoints for the trained FoodIntent model."""
+"""FastAPI endpoints for the experimental FoodIntent model."""
 
 from pathlib import Path
 from typing import Any
@@ -11,7 +11,10 @@ from foodintent_ml.train import MODEL_PATH
 
 app = FastAPI(
     title="FoodIntent ML",
-    description="Experimental classifier for Portuguese delivery support messages.",
+    description=(
+        "Experimental classifier for Portuguese delivery messages. "
+        "Every result requires human review."
+    ),
     version="0.1.0",
 )
 classifier: Any | None = None
@@ -47,7 +50,7 @@ def health() -> dict[str, str | bool]:
 
 @app.post("/classify", response_model=ClassifyResponse)
 def classify(request: ClassifyRequest) -> ClassifyResponse:
-    """Predict an intent, returning 503 until a model has been trained."""
+    """Predict an intent and keep human review enabled for every prediction."""
     if classifier is None:
         raise HTTPException(
             status_code=503,
@@ -60,5 +63,5 @@ def classify(request: ClassifyRequest) -> ClassifyResponse:
     return ClassifyResponse(
         intent=intent,
         confidence=confidence,
-        review_recommended=confidence < 0.55,
+        review_recommended=True,
     )

@@ -1,8 +1,7 @@
-"""Publish the trained pipeline to a Hugging Face model repository."""
+"""Publish a trained pipeline and its honest evaluation to Hugging Face."""
 
 import argparse
 import json
-from pathlib import Path
 
 from huggingface_hub import HfApi
 
@@ -10,7 +9,7 @@ from foodintent_ml.train import MODEL_PATH, REPORTS_PATH
 
 
 def main() -> None:
-    """Upload a model and its measured metrics using the cached HF login."""
+    """Upload model, test metrics, and a model card using the cached login."""
     parser = argparse.ArgumentParser()
     parser.add_argument("repo_id", help="e.g. username/foodintent-ml")
     args = parser.parse_args()
@@ -33,15 +32,18 @@ def main() -> None:
         "---\nlicense: mit\ntags:\n- text-classification\n- scikit-learn\n"
         "- portuguese\nlibrary_name: sklearn\n---\n\n"
         "# FoodIntent ML\n\n"
-        "Experimental TF-IDF intent classifier for Portuguese delivery support messages.\n\n"
+        "Experimental TF-IDF intent classifier. Every prediction requires "
+        "human review.\n\n"
         "## Evaluation\n\n"
         f"- Selected model: {metrics['selected_model']}\n"
-        f"- Test accuracy: {metrics['test']['accuracy']:.4f}\n"
-        f"- Test macro F1: {metrics['test']['macro_f1']:.4f}\n\n"
+        f"- Curated test macro F1: "
+        f"{metrics['curated_test']['macro_f1']:.4f}\n"
+        f"- SID test macro F1: {metrics['sid_test']['macro_f1']:.4f}\n\n"
         "## Data and limitations\n\n"
-        "Trained on the Portuguese subset of SID, a synthetic multilingual dataset. "
-        "It is not a representative sample of real delivery customers. Confidence "
-        "scores are not calibrated. Not for automated customer-impacting decisions.\n\n"
+        "Both the SID source and the project-authored delivery supplement are "
+        "synthetic. These metrics do not estimate performance on real customers. "
+        "Confidence values are not calibrated. Do not automate customer-impacting "
+        "decisions.\n\n"
         "Dataset: https://huggingface.co/datasets/luigicfilho/sid\n"
     )
     api.upload_file(
@@ -49,14 +51,14 @@ def main() -> None:
         path_in_repo="README.md",
         repo_id=args.repo_id,
         repo_type="model",
-        commit_message="Add model card with measured metrics",
+        commit_message="Add model card with measured metrics and limitations",
     )
     api.upload_file(
         path_or_fileobj=metrics_path.read_bytes(),
         path_in_repo="metrics.json",
         repo_id=args.repo_id,
         repo_type="model",
-        commit_message="Publish test metrics",
+        commit_message="Publish held-out evaluation metrics",
     )
     print(f"Published: https://huggingface.co/{args.repo_id}")
 

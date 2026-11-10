@@ -1,49 +1,44 @@
-# Classificação de intenções em mensagens de delivery: um baseline reproduzível
+# Classificação de intenções em delivery: o que um erro revelou sobre o benchmark
 
-> **Rascunho técnico.** Execute o notebook ou `python -m foodintent_ml.train` antes de completar a seção de resultados. Não há métricas presumidas.
+## Resumo
 
-## Problema
+Este projeto avalia um baseline TF-IDF para classificar mensagens de atendimento em cinco intenções: status do pedido, cancelamento, pagamento, reembolso e problema na entrega. Uma chamada real de teste mostrou uma falha importante: “Meu pedido está atrasado” foi classificada como cancelamento, com confiança próxima de 1. O erro levou à revisão do mapeamento dos dados e à criação de um teste separado com frases de delivery escritas para o projeto.
 
-Mensagens de suporte precisam ser encaminhadas à equipe correta. Este experimento avalia um classificador baseline para cinco intenções amplas: status do pedido, cancelamento, problema de pagamento, reembolso e problema na entrega.
+## Problema e classes
+
+A ideia é encaminhar mensagens para a fila operacional adequada. Status e atraso compartilham vocabulário com cancelamento, pagamento e reclamações. O modelo precisa distinguir a intenção, não apenas identificar palavras como “pedido” ou “entrega”.
 
 ## Dados e preparação
 
-Usamos o [SID — Synthetic Intent Dataset](https://huggingface.co/datasets/luigicfilho/sid), publicado sob licença MIT. Filtramos as linhas marcadas como português e mapeamos sete intenções de origem para cinco rótulos do projeto.
+A fonte externa é o [SID — Synthetic Intent Dataset](https://huggingface.co/datasets/luigicfilho/sid), licença MIT. A fonte é sintética, multilíngue e baseada em templates; filtramos português. O rótulo de reclamação de entrega na fonte é amplo, então foi removido do mapeamento automático para evitar tratá-lo como “item incorreto”.
 
-O conjunto SID é sintético, criado a partir de templates e aumentado automaticamente. Não é uma amostra representativa de conversas reais de delivery. Além disso, `report_delivery_issue` é uma classe abrangente e não significa apenas “pedido incorreto”; `track_order` e `check_order_status` são agrupadas como `order_status`, sem garantir que o pedido esteja atrasado. Essas limitações restringem as conclusões.
+Para acrescentar linguagem de delivery, o projeto inclui um pequeno suplemento escrito manualmente, também sintético. Ele tem splits separados de treino, validação e teste. Os exemplos do suplemento recebem peso maior no treino e a validação curada seleciona o modelo. A frase observada no erro (“Meu pedido está atrasado”) fica somente no teste curado.
+
+Esse teste serve como diagnóstico de regressão, mas ainda é pequeno e criado pela mesma equipe. Não é validação independente nem evidência de desempenho em clientes.
 
 ## Método
 
-Comparamos dois pipelines TF-IDF:
-
-1. Logistic Regression com balanceamento de classes.
-2. Multinomial Naive Bayes.
-
-O TF-IDF é ajustado apenas no conjunto de treino. A macro F1 do conjunto de validação escolhe o candidato; depois, medimos accuracy, macro F1, métricas por classe e matriz de confusão no teste reservado.
+Comparamos TF-IDF de palavras com Logistic Regression e Multinomial Naive Bayes. Selecionamos pelo macro F1 da validação curada. Reportamos métricas em dois conjuntos separados: o teste do SID e o teste curado específico de delivery. Isso deixa visível quando o resultado de um benchmark sintético mais amplo não se transfere ao vocabulário operacional pretendido.
 
 ## Resultados
 
-Preencha após executar o treinamento; os valores são gravados em `reports/metrics.json`:
+Execute novamente `python -m foodintent_ml.train` após atualizar o código. Preencha com os resultados reais gerados em `reports/metrics.json`:
 
-- Modelo escolhido pela validação: **[resultado]**
-- Accuracy no teste: **[resultado]**
-- Macro F1 no teste: **[resultado]**
-- Precisão, recall e F1 por classe: **[resultado]**
-- Principais confusões observadas: **[análise dos erros]**
+- Modelo selecionado: **[resultado]**
+- SID test: accuracy **[resultado]**, macro F1 **[resultado]**
+- Teste curado: accuracy **[resultado]**, macro F1 **[resultado]**
+- “Meu pedido está atrasado”: **[intenção prevista e confiança]**
+- Erros por classe e matriz de confusão: **[análise dos arquivos gerados]**
 
-Os resultados são do benchmark sintético filtrado. Não devem ser apresentados como desempenho em usuários reais.
+A métrica anterior de 0,9811 de accuracy e 0,9722 de macro F1 veio do teste SID antes da inclusão do suplemento; ela não mede a falha observada em linguagem natural de delivery e não deve ser divulgada como resultado final do projeto.
 
-## API e uso responsável
+## API e segurança operacional
 
-O serviço FastAPI oferece `GET /health` e `POST /classify`. A API retorna uma confiança não calibrada e sinaliza revisão humana abaixo de um limiar exploratório de 0,55. É uma demonstração educacional; não deve decidir automaticamente reembolsos ou ações que afetem clientes.
+A API FastAPI expõe `GET /health` e `POST /classify`. Como as probabilidades não foram calibradas e o benchmark não é representativo, toda previsão recomenda revisão humana. Não automatize cancelamentos, reembolsos ou ações com impacto para clientes.
 
 ## Próximos experimentos
 
-- Criar um conjunto pt-BR de mensagens de delivery revisado por pessoas e licenciado.
-- Separar treino e teste por template/origem para testar generalização.
-- Investigar erros por classe e calibrar probabilidades com dados apropriados.
-- Comparar TF-IDF de palavras com n-gramas de caracteres para mensagens com erros de digitação.
-
-## Reprodutibilidade
-
-O projeto fixa Python em `>=3.11,<3.12`. Instale com `pip install -e ".[dev]"`, execute `python -m foodintent_ml.train` e rode todas as células do notebook no Kaggle com Internet habilitada.
+- Obter uma amostra pt-BR de delivery revisada por anotadores independentes e com licença clara.
+- Aumentar o teste curado sem reutilizar frases do treino.
+- Inspecionar falsas previsões de cancelamento e itens incorretos.
+- Calibrar as probabilidades somente com dados adequados.

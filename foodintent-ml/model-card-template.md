@@ -9,14 +9,14 @@ library_name: sklearn
 
 # FoodIntent ML
 
-Classificador experimental TF-IDF para mensagens de suporte em português.
+Classificador experimental para mensagens de atendimento de delivery em português. Toda previsão requer revisão humana.
 
 ## Avaliação
 
-Este cartão é gerado pelo comando de publicação a partir de `reports/metrics.json`. Métricas não devem ser informadas antes da execução do treinamento.
+As métricas são geradas pelo treinamento e publicadas a partir de `reports/metrics.json`. O cartão separa teste SID e teste curado. Não publique valores antes de executar a versão atual do treinamento.
 
 ## Dados e limitações
 
-Treinado no subconjunto em português do SID, um dataset sintético multilíngue. Não representa clientes reais de delivery. As classes de status e problema de entrega são aproximações amplas. As probabilidades não são calibradas. Não use para decisões automatizadas com impacto ao cliente.
+O SID é sintético e multilíngue. O suplemento de delivery também é sintético e escrito para este projeto. O teste curado é pequeno e não é independente. Métricas não estimam desempenho em clientes reais. As probabilidades não são calibradas.
 
-Dataset: https://huggingface.co/datasets/luigicfilho/sid
+Dataset SID: https://huggingface.co/datasets/luigicfilho/sid
