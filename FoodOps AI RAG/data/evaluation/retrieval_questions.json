@@ -1,0 +1,162 @@
+[
+  {
+    "question": "Como verificar se um pedido realmente está atrasado?",
+    "expected_source": "late_delivery.md"
+  },
+  {
+    "question": "Quais informações devo conferir antes de atualizar o cliente sobre a entrega?",
+    "expected_source": "late_delivery.md"
+  },
+  {
+    "question": "O restaurante já confirmou o preparo? Como isso afeta o acompanhamento?",
+    "expected_source": "late_delivery.md"
+  },
+  {
+    "question": "O que posso informar quando ainda não existe uma previsão confirmada?",
+    "expected_source": "late_delivery.md"
+  },
+  {
+    "question": "Como atender o cliente quando o atraso é pequeno?",
+    "expected_source": "late_delivery.md"
+  },
+  {
+    "question": "O que fazer se o tempo de atraso continuar aumentando?",
+    "expected_source": "late_delivery.md"
+  },
+  {
+    "question": "Como registrar um impedimento que o restaurante relatou no preparo?",
+    "expected_source": "late_delivery.md"
+  },
+  {
+    "question": "O pedido não tem atualização recente. Como devo proceder?",
+    "expected_source": "late_delivery.md"
+  },
+  {
+    "question": "Como dar retorno ao cliente enquanto a equipe procura a localização do entregador?",
+    "expected_source": "late_delivery.md"
+  },
+  {
+    "question": "Quando devo encaminhar um pedido para avaliação de cancelamento?",
+    "expected_source": "late_delivery.md"
+  },
+  {
+    "question": "Posso prometer um horário exato de entrega sem confirmação?",
+    "expected_source": "late_delivery.md"
+  },
+  {
+    "question": "Quais dados precisam ser anotados ao concluir um atendimento de atraso?",
+    "expected_source": "late_delivery.md"
+  },
+  {
+    "question": "Como o próximo atendente pode entender o que já foi feito no caso?",
+    "expected_source": "late_delivery.md"
+  },
+  {
+    "question": "O pedido pode não ser mais entregue em condições adequadas; qual é o encaminhamento?",
+    "expected_source": "late_delivery.md"
+  },
+  {
+    "question": "Em que situação o exemplo de operação pode avaliar o estorno integral?",
+    "expected_source": "refund_policy.md"
+  },
+  {
+    "question": "O restaurante cancelou antes de começar a preparar. Como analisar o reembolso?",
+    "expected_source": "refund_policy.md"
+  },
+  {
+    "question": "Se um item faltar mas o restante chegar, qual reembolso pode ser avaliado?",
+    "expected_source": "refund_policy.md"
+  },
+  {
+    "question": "Quais comprovantes e dados são importantes para analisar uma solicitação de reembolso?",
+    "expected_source": "refund_policy.md"
+  },
+  {
+    "question": "Posso garantir uma data para o crédito do estorno?",
+    "expected_source": "refund_policy.md"
+  },
+  {
+    "question": "O que fazer quando faltam informações para decidir sobre o reembolso?",
+    "expected_source": "refund_policy.md"
+  },
+  {
+    "question": "Quem deve aprovar uma solicitação que exige autorização?",
+    "expected_source": "refund_policy.md"
+  },
+  {
+    "question": "Como documentar os fatos para que uma decisão de reembolso possa ser revisada?",
+    "expected_source": "refund_policy.md"
+  },
+  {
+    "question": "Quais itens cobrados devo comparar com o relato do cliente?",
+    "expected_source": "refund_policy.md"
+  },
+  {
+    "question": "O documento define uma política real de reembolso da iFood?",
+    "expected_source": "refund_policy.md"
+  },
+  {
+    "question": "Como explicar ao cliente qual cenário de reembolso foi considerado?",
+    "expected_source": "refund_policy.md"
+  },
+  {
+    "question": "Quando o reembolso deve ser apenas do produto ausente?",
+    "expected_source": "refund_policy.md"
+  },
+  {
+    "question": "O que confirmar com o restaurante quando um produto acabou?",
+    "expected_source": "unavailable_items.md"
+  },
+  {
+    "question": "Posso trocar um item por outro sem falar com o cliente?",
+    "expected_source": "unavailable_items.md"
+  },
+  {
+    "question": "Quais opções podem ser apresentadas quando um produto está indisponível?",
+    "expected_source": "unavailable_items.md"
+  },
+  {
+    "question": "Como devo descrever um produto substituto ao cliente?",
+    "expected_source": "unavailable_items.md"
+  },
+  {
+    "question": "Devo registrar uma escolha que o cliente ainda não confirmou?",
+    "expected_source": "unavailable_items.md"
+  },
+  {
+    "question": "O cliente escolheu uma alternativa. O que verificar antes de alterar o pedido?",
+    "expected_source": "unavailable_items.md"
+  },
+  {
+    "question": "Se o consumidor preferir remover o item, o que devo registrar?",
+    "expected_source": "unavailable_items.md"
+  },
+  {
+    "question": "O que fazer se o cliente não responder sobre o produto indisponível?",
+    "expected_source": "unavailable_items.md"
+  },
+  {
+    "question": "Como documentar quem autorizou a mudança no produto?",
+    "expected_source": "unavailable_items.md"
+  },
+  {
+    "question": "Quais diferenças do item alternativo precisam ser explicadas?",
+    "expected_source": "unavailable_items.md"
+  },
+  {
+    "question": "Em qual prazo devo esperar uma resposta para a escolha do cliente?",
+    "expected_source": "unavailable_items.md"
+  },
+  {
+    "question": "Quando o pedido inteiro pode ser cancelado por falta de um produto?",
+    "expected_source": "unavailable_items.md"
+  },
+  {
+    "question": "Como registrar as tentativas de contato quando o cliente não responde?",
+    "expected_source": "unavailable_items.md"
+  },
+  {
+    "question": "Que informações do produto original e da opção escolhida devem ficar documentadas?",
+    "expected_source": "unavailable_items.md"
+  }
+]

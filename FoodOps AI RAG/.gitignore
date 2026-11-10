@@ -1,0 +1,44 @@
+# Python virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python cache and build artifacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Test and lint caches
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local environment files and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*~
+
+# Local Chroma vector database
+data/chroma/
+
+
+# User-uploaded documents may contain private operational data
+data/knowledge_base/uploads/
